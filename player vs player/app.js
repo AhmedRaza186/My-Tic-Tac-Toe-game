@@ -36,7 +36,7 @@ const checkWin = () => {
     if (!gameover && filled) {
         document.querySelector('.info').innerText = "It's a Draw!"
         gameover = true
-        document.querySelector('.imgbox img').style.width = '200px'
+
         showPopup("It's a Draw!")
     }
 }
