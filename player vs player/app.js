@@ -9,25 +9,36 @@ const changeTurn = () => {
 
 const checkWin = () => {
     let boxtext = document.getElementsByClassName('box-text')
-let wins = [
-    [0, 1, 2], 
-    [3, 4, 5],   
-    [6, 7, 8],   
-    [0, 3, 6], 
-    [1, 4, 7],  
-    [2, 5, 8], 
-    [0, 4, 8],
-    [2, 4, 6], 
-]
+    let wins = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ]
 
     wins.forEach(e => {
         if ((boxtext[e[0]].innerText === boxtext[e[1]].innerText && (boxtext[e[2]].innerText === boxtext[e[0]].innerText)) && (boxtext[e[0]].innerText !== '')) {
             document.querySelector('.info').innerText = boxtext[e[0]].innerText + ' Won'
             gameover = true
             document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = '200px'
+            showPopup(boxtext[e[0]].innerText + " Won!")
 
         }
     })
+    let filled = true
+    Array.from(boxtext).forEach(el => {
+        if (el.innerText === '') filled = false
+    })
+    if (!gameover && filled) {
+        document.querySelector('.info').innerText = "It's a Draw!"
+        gameover = true
+        document.querySelector('.imgbox img').style.width = '200px'
+        showPopup("It's a Draw!")
+    }
 }
 
 let boxes = document.getElementsByClassName("box")
@@ -56,5 +67,13 @@ reset.addEventListener('click', () => {
     gameover = false
     document.getElementsByClassName('info')[0].innerText = "Turn for " + turn
     document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = '0px'
-   
+
+})
+const showPopup = (message) => {
+    document.getElementById("popup-message").innerText = message
+    document.getElementById("popup").style.display = "flex"
+}
+
+document.getElementById("popup-ok").addEventListener("click", () => {
+    document.getElementById("popup").style.display = "none"
 })

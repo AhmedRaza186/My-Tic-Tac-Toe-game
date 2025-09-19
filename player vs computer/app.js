@@ -27,8 +27,11 @@ const checkWin = () => {
         ) {
             document.querySelector(".info").innerText =
                 boxtext[e[0]].innerText + " Won!"
+                
             gameover = true;
               document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = '200px'
+              showPopup(boxtext[e[0]].innerText + " Won!")
+
         }
     });
 };
@@ -49,6 +52,8 @@ function computerMove() {
     if (emptyBoxes.length === 0) {
         document.querySelector(".info").innerText = "Draw!"
         gameover = true
+        showPopup("It's a Draw!")
+
         return
     }
 
@@ -90,4 +95,17 @@ reset.addEventListener("click", () => {
     gameover = false
     document.querySelector(".info").innerText = "Turn for " + turn
       document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = '0px'
+})
+
+const popup = document.getElementById("popup")
+const popupMsg = document.getElementById("popup-message")
+const popupOk = document.getElementById("popup-ok")
+
+function showPopup(message) {
+    popupMsg.innerText = message
+    popup.style.display = "flex"
+}
+
+popupOk.addEventListener("click", () => {
+    popup.style.display = "none"
 })
